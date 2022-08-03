@@ -24,6 +24,6 @@ jobs:
       # Setup SSH key
       - run: set -eu
       - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.EC2_SSH_KEY }}" > "$HOME/.ssh/key"
-      - run: chmod 400 "$HOME/.ssh/key"
-      - run: ssh -i "$HOME/.ssh/key" ubuntu@${{ github.event.inputs.ec2ip }}
+      - run: echo "${{ secrets.EC2_SSH_KEY }}" > "$HOME/.ssh/key.pem"
+      - run: chmod 400 "$HOME/.ssh/key.pem"
+      - run: ssh -i "$HOME/.ssh/key.pem" ubuntu@${{ github.event.inputs.ec2ip }}
