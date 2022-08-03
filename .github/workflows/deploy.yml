@@ -43,8 +43,8 @@ jobs:
           user: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           first_ssh: |
-            mkdir -p /home/c8prod/captiv8.io
-            rm -rf /home/c8prod/captiv8.io
+            sudo mkdir -p /home/c8prod/captiv8.io
+            sudo rm -rf /home/c8prod/captiv8.io
           scp: |
             '.*' => /home/c8prod/captiv8.io
           last_ssh: |
