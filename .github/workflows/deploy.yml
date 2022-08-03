@@ -9,7 +9,7 @@ on:
         default: 'alpha'
       ec2ip:
         required: true
-        default: '3.10.173.82'
+        default: 3.10.173.82
 
 env:
   FOLDER_PATH: /home/c8prod/captiv8.io
