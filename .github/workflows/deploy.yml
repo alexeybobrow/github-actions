@@ -25,6 +25,6 @@ jobs:
       - run: echo "${{ secrets.EC2_SSH_KEY }}" > "$HOME/.ssh/key.pem"
       - run: chmod 400 "$HOME/.ssh/key.pem"
       - run: cat "$HOME/.ssh/key.pem"
-      - run: ssh -i "$HOME/.ssh/key.pem" ubuntu@${{ github.event.inputs.ec2ip }}
+      - run: ssh -p 22 -i "$HOME/.ssh/key.pem" ubuntu@${{ github.event.inputs.ec2ip }}
       - run: whoami
       - run: pwd
