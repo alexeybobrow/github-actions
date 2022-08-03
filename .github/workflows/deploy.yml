@@ -26,3 +26,5 @@ jobs:
       - run: chmod 400 "$HOME/.ssh/key.pem"
       - run: cat "$HOME/.ssh/key.pem"
       - run: ssh -i "$HOME/.ssh/key.pem" ubuntu@${{ github.event.inputs.ec2ip }}
+      - run: whoami
+      - run: pwd
