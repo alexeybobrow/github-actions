@@ -10,6 +10,7 @@ on:
       ec2ip:
         required: true
         default: 3.10.173.82
+        description: 'host'
 
 env:
   FOLDER_PATH: /home/c8prod/captiv8.io
