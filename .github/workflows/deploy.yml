@@ -21,10 +21,12 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - run: mkdir "$HOME/.ssh"
-      - run: echo "${{ secrets.EC2_SSH_KEY }}" > "$HOME/.ssh/key.pem"
-      - run: chmod 400 "$HOME/.ssh/key.pem"
-      - run: cat "$HOME/.ssh/key.pem"
-      - run: ssh -p 22 -i "$HOME/.ssh/key.pem" ubuntu@${{ github.event.inputs.ec2ip }}
-      - run: whoami
-      - run: pwd
+      - id: ssh
+        uses: invi5H/ssh-action@v1
+        with:
+          SSH_HOST: 3.10.173.82
+          SSH_PORT: 22
+          SSH_USER: ubuntu
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} echo "123test" > hello.txt
