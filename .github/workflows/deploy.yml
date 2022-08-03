@@ -19,19 +19,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Connect to the server
-        uses: appleboy/ss
-        run: |
-          ssh -p 2200 c8prod@platform.{{ github.event.inputs.env }}.captiv8.io
-          cd {{ env.FOLDER_PATH }}
-      - name: Git checkout
-        uses: actions/checkout@v3
-      - name: composer install
-        run: composer install
-      - name: Migration
-        run: php artisan migrate --force
-      - name: Compilation
-        run: php artisan clear-compiled
-      - name: cache clear
-        run: php artisan cache:clear
-      - name: restart
-        run: php artisan queue:restart
+        uses: appleboy/ssh-action@master
+        with:
+          host: 3.10.173.82
+          username: c8prod
+          key: ${{ secrets.EC2_SSH_KEY }}
+          port: 22
+          script: |
+            whoami
+            pwd
+            mkdir {{ env.FOLDER_PATH }}
+            mkdir {{ github.events.inputs.env }}
