@@ -42,8 +42,14 @@ jobs:
           host: 3.10.173.82
           user: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          first_ssh: |
+            mkdir -p /home/c8prod/captiv8.io
+            rm -rf /home/c8prod/captiv8.io
           scp: |
             '.*' => /home/c8prod/captiv8.io
+          last_ssh: |
+            ls -la
+            pwd
 #      - id: ssh
 #        uses: invi5H/ssh-action@v1
 #        with:
