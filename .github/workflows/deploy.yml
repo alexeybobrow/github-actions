@@ -1,5 +1,15 @@
 name: Build
 
+#  echo 'post-update-cmd'
+#
+#  ssh -p 2200 %server_name% "cd %folder_path%;
+#  git pull &&
+#  composer install &&
+#  php artisan migrate --force &&
+#  php artisan clear-compiled &&
+#  php artisan cache:clear &&
+#  php artisan queue:restart"
+
 on:
   workflow_dispatch:
     inputs:
@@ -23,6 +33,7 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - id: ssh
         uses: invi5H/ssh-action@v1
         with:
