@@ -31,3 +31,4 @@ jobs:
           SSH_USER: ubuntu
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
       - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} touch test
