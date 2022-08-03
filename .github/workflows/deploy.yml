@@ -7,9 +7,6 @@ on:
         description: 'Set environment (alpha, dev, staging)'
         required: true
         default: 'alpha'
-      ec2ip:
-        required: true
-        default: 3.10.173.82
 
 env:
   FOLDER_PATH: /home/c8prod/captiv8.io
@@ -18,15 +15,16 @@ env:
   STAGING: c8prod@platform.staging.captiv8.io
 
 jobs:
-  deploy:
+  build:
+    name: Build
     runs-on: ubuntu-latest
     steps:
-      - id: ssh
-        uses: invi5H/ssh-action@v1
+      - name: executing remote ssh commands using password
+        uses: appleboy/ssh-action@master
         with:
-          SSH_HOST: 3.10.173.82
-          SSH_PORT: 22
-          SSH_USER: ubuntu
-          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} echo "123test" > hello.txt
+          host: 3.10.173.82
+          username: ubuntu
+          key: ${{ secrets.SSH }}
+          port: 22
+          script: whoami
+
