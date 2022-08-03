@@ -36,27 +36,27 @@ jobs:
       - uses: actions/checkout@v3
       - run: pwd
       - run: ls -la
-      - name: scp pipelines
-        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-        with:
-          host: 3.10.173.82
-          user: ubuntu
-          key: ${{ secrets.EC2_SSH_KEY }}
-          first_ssh: |
-            sudo mkdir -p /home/c8prod/captiv8.io
-            sudo rm -rf /home/c8prod/captiv8.io/**
-            sudo chmod 777 /home/c8prod/captiv8.io
-          scp: |
-            '.*' => /home/c8prod/captiv8.io
-          last_ssh: |
-            ls -la
-            pwd
-#      - id: ssh
-#        uses: invi5H/ssh-action@v1
+#      - name: scp pipelines
+#        uses: cross-the-world/ssh-scp-ssh-pipelines@latest
 #        with:
-#          SSH_HOST: 3.10.173.82
-#          SSH_PORT: 22
-#          SSH_USER: ubuntu
-#          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-#      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
-#      - run: ssh ${{ steps.ssh.outputs.SERVER }} touch test
+#          host: 3.10.173.82
+#          user: ubuntu
+#          key: ${{ secrets.EC2_SSH_KEY }}
+#          first_ssh: |
+#            sudo mkdir -p /home/c8prod/captiv8.io
+#            sudo rm -rf /home/c8prod/captiv8.io/**
+#            sudo chmod 777 /home/c8prod/captiv8.io
+#          scp: |
+#            '.*' => /home/c8prod/captiv8.io
+#          last_ssh: |
+#            ls -la
+#            pwd
+      - id: ssh
+        uses: invi5H/ssh-action@v1
+        with:
+          SSH_HOST: 3.10.173.82
+          SSH_PORT: 22
+          SSH_USER: ubuntu
+          SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd && ls -la
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} git pull
