@@ -34,6 +34,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - run: pwd
       - run: ls -la
 #      - id: ssh
 #        uses: invi5H/ssh-action@v1
