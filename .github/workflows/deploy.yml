@@ -46,6 +46,7 @@ jobs:
             sudo mkdir -p /home/c8prod/captiv8.io
             sudo rm -rf /home/c8prod/captiv8.io
           scp: |
+            sudo su
             '.*' => /home/c8prod/captiv8.io
           last_ssh: |
             ls -la
