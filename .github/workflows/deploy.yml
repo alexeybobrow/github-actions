@@ -28,4 +28,4 @@ jobs:
           SSH_PORT: 22
           SSH_USER: ubuntu
           SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
-      - run: ssh ${{ steps.ssh.outputs.SERVER }} pwd
+      - run: ssh ${{ steps.ssh.outputs.SERVER }} echo "123test" > hello.txt
