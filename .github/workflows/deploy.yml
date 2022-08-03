@@ -7,6 +7,9 @@ on:
         description: 'Set environment (alpha, dev, staging)'
         required: true
         default: 'alpha'
+      ec2ip:
+        required: true
+        default: '3.10.173.82'
 
 env:
   FOLDER_PATH: /home/c8prod/captiv8.io
@@ -18,15 +21,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Connect to the server
-        uses: appleboy/ssh-action@master
-        with:
-          host: 3.10.173.82
-          username: c8prod
-          key: ${{ secrets.EC2_SSH_KEY }}
-          port: 22
-          script: |
-            whoami
-            pwd
-            mkdir {{ env.FOLDER_PATH }}
-            mkdir {{ github.events.inputs.env }}
+      # Setup SSH key
+      - run: set -eu
+      - run: mkdir "$HOME/.ssh"
+      - run: echo "${{ secrets.EC2_SSH_KEY }}" > "$HOME/.ssh/key"
+      - run: chmod 400 "$HOME/.ssh/key"
+      - run: ssh -i "$HOME/.ssh/key" ubuntu@${{ github.input.events.ec2ip }}
