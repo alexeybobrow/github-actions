@@ -15,6 +15,9 @@ on:
     branches:
       - 'main'
 
+env:
+  EC2IP: '35.179.74.229'
+
 jobs:
   get_vars:
     name: Expose variables
@@ -30,5 +33,5 @@ jobs:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
-      EC2_HOST: ${{ inputs.EC2IP }}
+      EC2_HOST: ${{ env.EC2IP }}
     secrets: inherit
