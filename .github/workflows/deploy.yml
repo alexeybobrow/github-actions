@@ -30,5 +30,6 @@ jobs:
           script: |
             cd ${{ env.FOLDER_PATH }}/github-actions
             pwd
+            echo "${{ secrets.EC2_SSH_KEY }}" >> "${{ github.event.inputs.env }}"    
             git pull
             ls -la
