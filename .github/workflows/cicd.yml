@@ -16,7 +16,7 @@ on:
       - 'main'
 
 env:
-  EC2IP: '35.179.74.229'
+  EC2IP: 35.179.74.229
 
 jobs:
   get_vars:
