@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            cd ${{ env.FOLDER_PATH }}/github-actions
+            cd ${{ inputs.FOLDER_PATH }}/github-actions
             pwd
             echo "${{ inputs.SSH_HOST }}"
             echo "${{ secrets.EC2_SSH_KEY }}" >> "${{ inputs.ENVIRONMENT }}"    
