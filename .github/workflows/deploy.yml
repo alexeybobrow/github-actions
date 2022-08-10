@@ -1,24 +1,25 @@
-name: Build
+name: Deploy
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      env:
-        description: 'Set environment (alpha, dev, staging)'
+      ENVIRONMENT:
+        description: 'Environment name'
+        type: string
         required: true
-        default: 'alpha'
-      ec2ip:
+      FOLDER_PATH:
+        description: 'Folder path'
+        type: string
         required: true
-        default: 35.179.74.229
-        description: 'host'
-        
-env:
-  FOLDER_PATH: /home/c8prod/captiv8.io
+      SSH_HOST:
+        description: 'Host name'
+        type: string
+        required: true
 
 jobs:
-  build:
-    name: Test inputs
+  deploy:
     runs-on: ubuntu-latest
+
     steps:
       - name: Test via SSH
         uses: appleboy/ssh-action@master
@@ -30,6 +31,6 @@ jobs:
           script: |
             cd ${{ env.FOLDER_PATH }}/github-actions
             pwd
-            echo "${{ secrets.EC2_SSH_KEY }}" >> "${{ github.event.inputs.env }}"    
-            git pull
-            ls -la
+            echo "${{ inputs.SSH_HOST }}"
+            echo "${{ secrets.EC2_SSH_KEY }}" >> "${{ inputs.ENVIRONMENT }}"    
+            whoami
