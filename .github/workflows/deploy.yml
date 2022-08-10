@@ -23,7 +23,7 @@ jobs:
       - name: Test via SSH
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ github.event.iputs.ec2ip }}
+          host: ${{ github.event.inputs.ec2ip }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
