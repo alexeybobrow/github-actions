@@ -40,19 +40,19 @@ jobs:
                 "deploy_to": "platform.alpha.captiv8.io",
                 "node_env": "testing",
                 "folder_path": "/home/c8prod/captiv8.io",
-                "ec2_host": 35.179.74.229
+                "ec2_host": "35.179.74.229"
               },
               "dev": {
                 "deploy_to": "platform.dev.captiv8.io",
                 "node_env": "testing",
                 "folder_path": "/home/c8prod/captiv8.io",
-                "ec2_host": 35.179.74.229
+                "ec2_host": "35.179.74.229"
               },
               "staging": {
                 "deploy_to": "platform.staging.captiv8.io",
                 "node_env": "testing",
                 "folder_path": "/home/c8prod/captiv8.io",
-                "ec2_host": 35.179.74.229
+                "ec2_host": "35.179.74.229"
               }
             }
           export_to: log,output
