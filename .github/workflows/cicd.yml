@@ -7,7 +7,7 @@ on:
         description: 'Set environment'
         type: environment
         required: true
-        default: 'staging'
+        default: staging
       EC2IP:
         required: true
         default: 35.179.74.229
