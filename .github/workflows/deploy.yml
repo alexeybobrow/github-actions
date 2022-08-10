@@ -28,8 +28,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            mkdir -p /home/ubuntu/${{ env.FOLDER_PATH }}/${{ github.event.inputs.env }}
-            cd /home/ubuntu/${{ env.FOLDER_PATH }}
+            cd ${{ env.FOLDER_PATH }}/github-actions
             pwd
+            git pull
             ls -la
-            date
