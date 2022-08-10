@@ -14,6 +14,9 @@ on:
       FOLDER_PATH:
         description: "Folder path"
         value: ${{ jobs.set_vars.outputs.folder_path }}
+      EC2IP:
+        description: 'Ec2 host ip'
+        value: ${{ jobs.set_vars.outputs.ec2_host }}
 
 jobs:
   set_vars:
@@ -24,6 +27,7 @@ jobs:
     outputs:
       deploy_to: ${{ steps.export.outputs.deploy_to }}
       folder_path: ${{ steps.export.outputs.folder_path }}
+      ec2_host: ${{ steps.export.outputs.ec2_host }}
 
     steps:
       - uses: kanga333/variable-mapper@master
@@ -35,17 +39,20 @@ jobs:
              "alpha": {
                 "deploy_to": "platform.alpha.captiv8.io",
                 "node_env": "testing",
-                "folder_path": "/home/c8prod/captiv8.io"
+                "folder_path": "/home/c8prod/captiv8.io",
+                "ec2_host": 35.179.74.229
               },
               "dev": {
                 "deploy_to": "platform.dev.captiv8.io",
                 "node_env": "testing",
-                "folder_path": "/home/c8prod/captiv8.io"
+                "folder_path": "/home/c8prod/captiv8.io",
+                "ec2_host": 35.179.74.229
               },
               "staging": {
                 "deploy_to": "platform.staging.captiv8.io",
                 "node_env": "testing",
-                "folder_path": "/home/c8prod/captiv8.io"
+                "folder_path": "/home/c8prod/captiv8.io",
+                "ec2_host": 35.179.74.229
               }
             }
           export_to: log,output

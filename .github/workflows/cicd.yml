@@ -7,16 +7,6 @@ on:
         type: environment
         description: 'Set environment'
         required: true
-      EC2IP:
-        required: true
-        default: 35.179.74.229
-        description: 'host'
-  push:
-    branches:
-      - 'main'
-
-env:
-  EC2IP: 35.179.74.229
 
 jobs:
   get_vars:
@@ -33,5 +23,5 @@ jobs:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
       FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
-      EC2_HOST: 35.179.74.229
+      EC2IP: ${{ needs.get_vars.outputs.EC2IP }}
     secrets: inherit
