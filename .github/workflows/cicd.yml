@@ -4,14 +4,16 @@ on:
   workflow_dispatch:
     inputs:
       ENVIRONMENT:
-        description: 'Set environment'
         type: environment
+        description: 'Set environment'
         required: true
-        default: staging
       EC2IP:
         required: true
         default: 35.179.74.229
         description: 'host'
+  push:
+    branches:
+      - 'master'
 
 jobs:
   get_vars:
