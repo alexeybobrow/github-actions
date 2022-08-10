@@ -28,7 +28,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            mkdir ${{ env.FOLDER_PATH }}/${{ github.event.inputs.env }}
+            mkdir -p ${{ env.FOLDER_PATH }}/${{ github.event.inputs.env }}
             cd ${{ env.FOLDER_PATH }}
             pdw
             ls -la
