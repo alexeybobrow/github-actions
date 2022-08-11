@@ -23,7 +23,7 @@ jobs:
   build-and-deploy:
     name: Test inputs
     if: |
-      ${{ inputs.ENVIRONMENT != 'production' }} &&
+      ${{ inputs.ENVIRONMENT != 'production' }} ||
       ${{ inputs.IS_PROD == false }}
     needs: get_vars
     uses: ./.github/workflows/deploy.yml
