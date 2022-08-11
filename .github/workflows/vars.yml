@@ -53,6 +53,12 @@ jobs:
                 "node_env": "testing",
                 "folder_path": "/home/c8prod/captiv8.io",
                 "ec2_host": "35.179.74.229"
+              },
+              "production": {
+                "deploy_to": "platform.captiv8.io",
+                "node_env": "production",
+                "folder_path": "/home/c8prod/captiv8.io",
+                "ec2_host": "35.179.74.229"
               }
             }
           export_to: log,output

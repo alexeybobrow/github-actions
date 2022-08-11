@@ -7,6 +7,11 @@ on:
         type: environment
         description: 'Set environment'
         required: true
+      IS_PROD:
+        type: boolean
+        description: 'Deploy in prod?'
+        required: true
+        default: false
 
 jobs:
   get_vars:
@@ -17,8 +22,25 @@ jobs:
 
   build-and-deploy:
     name: Test inputs
+    if: |
+      ${{ inputs.ENVIRONMENT != 'production' }} &&
+      ${{ inputs.IS_PROD == false }}
     needs: get_vars
     uses: ./.github/workflows/deploy.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+      SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
+      FOLDER_PATH: ${{ needs.get_vars.outputs.FOLDER_PATH }}
+      EC2IP: ${{ needs.get_vars.outputs.EC2IP }}
+    secrets: inherit
+
+  deploy-production:
+    name: Deploy production
+    needs: get_vars
+    if: |
+      ${{ inputs.ENVIRONMENT == 'production' }} &&
+      ${{ inputs.IS_PROD == true }}
+    uses: ./.github/workflows/deploy_prod.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SSH_HOST: ${{ needs.get_vars.outputs.DEPLOY_TO }}
