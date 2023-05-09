@@ -1,12 +1,22 @@
 on: push
 name: Slack Notification Demo
 jobs:
-  slackNotification:
-    name: Slack Notification
+  successedJob:
+    name: Successed Job
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - run: ls -la
+  failedJob:
+    name: Failed Job
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - run: cat test.txt
+  slackNotification:
+    name: Slack Notification
+    runs-on: ubuntu-latest
+    steps:
     - name: Slack Notification
       uses: rtCamp/action-slack-notify@v2
       env:
