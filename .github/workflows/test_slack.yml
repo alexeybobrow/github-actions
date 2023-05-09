@@ -28,6 +28,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: cat test.txt
+    - uses: rtCamp/action-slack-notify@v2
       name: Send slack notification
       if: ${{ failure() }}
       env:
