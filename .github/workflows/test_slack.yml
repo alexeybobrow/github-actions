@@ -7,18 +7,39 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - run: ls -la
+    - uses: rtCamp/action-slack-notify@v2
+      name: Send slack notification
+      if: ${{ failure() }}
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_MESSAGE: "FAILURE...."
+        SLACK_COLOR: ${{ job.status }}
+
+    - uses: rtCamp/action-slack-notify@v2
+      name: Send slack notification
+      if: ${{ success() }}
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_MESSAGE: "SUCCESS"
+        SLACK_COLOR: ${{ job.status }}
   failedJob:
     name: Failed Job
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - run: cat test.txt
-  slackNotification:
-    name: Slack Notification
-    runs-on: ubuntu-latest
-    steps:
-    - name: Slack Notification
-      uses: rtCamp/action-slack-notify@v2
+      name: Send slack notification
+      if: ${{ failure() }}
       env:
         SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-        SLACK_COLOR: ${{ job.status }} # or a specific color like 'good' or '#ff00ff'
+        SLACK_MESSAGE: "FAILURE...."
+        SLACK_COLOR: ${{ job.status }}
+
+    - uses: rtCamp/action-slack-notify@v2
+      name: Send slack notification
+      if: ${{ success() }}
+      env:
+        SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        SLACK_MESSAGE: "SUCCESS"
+        SLACK_COLOR: ${{ job.status }}
+  
