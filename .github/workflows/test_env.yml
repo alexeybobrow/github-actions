@@ -1,0 +1,22 @@
+name: 'Dev Test Env vars'
+
+on:
+    workflow_dispatch:
+        inputs:
+            ENVIRONMENT:
+                type: choice
+                description: 'Environment name'
+                required: true
+                default: 'dev'
+                options:
+                    - dev
+jobs:
+    build:
+        if: inputs.SKIP_BUILD == false
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v3
+
+            - name: Put secrets
+              run: echo "NEXT_PUBLIC_API_URL = '${{ env.NEXT_PUBLIC_API_URL }}'"
