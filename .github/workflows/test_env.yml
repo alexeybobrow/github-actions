@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
         inputs:
             ENVIRONMENT:
-                type: choice
+                type: environment
                 description: 'Environment name'
                 required: true
                 default: 'dev'
