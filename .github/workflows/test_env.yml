@@ -21,4 +21,4 @@ jobs:
             - name: Put secrets
               run: echo "NEXT_PUBLIC_API_URL = $NEXT_PUBLIC_API_URL"
             
-            - run: echo ${{vars.NEXT_PUBLIC_API_URL}}
+            - run: echo "${{ vars.NEXT_PUBLIC_API_URL }}"
