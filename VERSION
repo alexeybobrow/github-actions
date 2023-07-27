@@ -1,2 +1,3 @@
 2.10.110.0
 \n rake bump:major staging
+\n rake bump:minor
