@@ -19,7 +19,7 @@ on:
 jobs:
   bump_version_staging:
     runs-on: ubuntu-latest
-    if: inputs.ENVIRONMENT == "staging"
+    if: inputs.ENVIRONMENT == 'staging'
 
     steps:
       - name: Checkout code
@@ -51,7 +51,7 @@ jobs:
 
   bump_version_prod:
     runs-on: ubuntu-latest
-    if: inputs.ENVIRONMENT == "main"
+    if: inputs.ENVIRONMENT == 'main'
 
     steps:
       - name: Checkout code staging
