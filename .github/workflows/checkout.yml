@@ -1,0 +1,103 @@
+name: "Checkout test "
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        type: choice
+        description: 'Environment name'
+        required: true
+        default: 'main'
+        options:
+          - main
+          - staging
+          - dev
+
+jobs:
+  bump_version_staging:
+    runs-on: ubuntu-latest
+    if: inputs.ENVIRONMENT == "staging"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          ref: staging
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Bump version
+        run: |
+          rake bump:minor
+
+      - name: Commit files
+        run: |
+          git config --local user.email "github-actions[bot]@noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -F "VERSION" -m "Bump minor version"
+
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+  bump_version_prod:
+    runs-on: ubuntu-latest
+    if: inputs.ENVIRONMENT == "main"
+
+    steps:
+      - name: Checkout code staging
+        uses: actions/checkout@v3
+        with:
+          ref: staging
+
+      - name: Install Ruby and gems
+        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        with:
+          bundler-cache: true
+          ruby-version: ${{ env.RUBY_VERSION }}
+
+      - name: Bump version staging
+        run: |
+          rake bump:major
+
+      - name: Commit files staging
+        run: |
+          git config --local user.email "github-actions[bot]@noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -F "VERSION" -m "Bump minor version"
+
+      - name: Push changes staging
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
+
+      - name: Checkout code dev
+        uses: actions/checkout@v3
+        with:
+          ref: dev
+
+      - name: Bump version dev
+        run: |
+          rake bump:major
+
+      - name: Commit files dev
+        run: |
+          git config --local user.email "github-actions[bot]@noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -F "VERSION" -m "Bump minor version"
+
+      - name: Push changes dev
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
