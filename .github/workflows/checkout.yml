@@ -27,12 +27,6 @@ jobs:
         with:
           ref: staging
 
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          bundler-cache: true
-          ruby-version: ${{ env.RUBY_VERSION }}
-
       - name: Bump version
         run: |
           rake bump:minor
@@ -59,15 +53,9 @@ jobs:
         with:
           ref: staging
 
-      - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
-        with:
-          bundler-cache: true
-          ruby-version: ${{ env.RUBY_VERSION }}
-
       - name: Bump version staging
         run: |
-          rake bump:major
+          echo "\n rake bump:major staging"
 
       - name: Commit files staging
         run: |
@@ -88,7 +76,7 @@ jobs:
 
       - name: Bump version dev
         run: |
-          rake bump:major
+          echo "\n rake bump:major dev" >> VERSION
 
       - name: Commit files dev
         run: |
