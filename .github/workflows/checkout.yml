@@ -34,7 +34,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION"
+          git commit -a -m "Bump version stag"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
@@ -58,7 +58,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION"
+          git commit git commit -a -m "Bump version staging"
       - name: Push changes staging
         uses: ad-m/github-push-action@master
         with:
@@ -77,7 +77,7 @@ jobs:
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION"
+          git commit git commit -a -m "Bump version dev"
       - name: Push changes dev
         uses: ad-m/github-push-action@master
         with:
