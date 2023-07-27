@@ -29,14 +29,12 @@ jobs:
 
       - name: Bump version
         run: |
-          rake bump:minor
-
+          echo "\n rake bump:minor" >> VERSION
       - name: Commit files
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION" -m "Bump minor version"
-
+          git commit -F "VERSION"
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
@@ -55,14 +53,12 @@ jobs:
 
       - name: Bump version staging
         run: |
-          echo "\n rake bump:major staging"
-
+          echo "\n rake bump:major staging" >> VERSION
       - name: Commit files staging
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION" -m "Bump minor version"
-
+          git commit -F "VERSION"
       - name: Push changes staging
         uses: ad-m/github-push-action@master
         with:
@@ -77,13 +73,11 @@ jobs:
       - name: Bump version dev
         run: |
           echo "\n rake bump:major dev" >> VERSION
-
       - name: Commit files dev
         run: |
           git config --local user.email "github-actions[bot]@noreply.github.com"
           git config --local user.name "github-actions[bot]"
-          git commit -F "VERSION" -m "Bump minor version"
-
+          git commit -F "VERSION"
       - name: Push changes dev
         uses: ad-m/github-push-action@master
         with:
