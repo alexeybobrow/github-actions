@@ -21,4 +21,4 @@ jobs:
       # Install vips
       - name: Install libvips
         run:
-          sudo apt-get update -qq && apt-get install libvips42
+          sudo apt-get update -qq && sudo apt-get install libvips42
