@@ -21,4 +21,4 @@ jobs:
       # Install vips
       - name: Install libvips
         run:
-          sudo snap install -y libvips
+          sudo snap install libvips
