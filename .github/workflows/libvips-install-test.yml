@@ -1,7 +1,4 @@
-name: "Backend CICD Dev "
-
-permissions:
-  contents: write
+name: "libvips install test"
 
 on:
   workflow_dispatch:
