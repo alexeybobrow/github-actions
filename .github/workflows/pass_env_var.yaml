@@ -32,8 +32,6 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       VERSION: ${{ needs.build.outputs.VERSION }}
-    with:
-      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
     steps:
       - run: echo "bump_version_dev"
 
@@ -41,11 +39,7 @@ jobs:
     name: Notify on Slack
     if: always()
     needs: bump_version_dev
-    with:
-      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
-      SLACK_CHANNEL_ID: project-rocky-cicd
-      STATUS: ${{ needs.bump_version_dev.result }}
-      VERSION: ${{ needs.bump_version_dev.outputs.VERSION }}
+    runs-on: ubuntu-latest
     steps:
       - run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
 
