@@ -18,14 +18,14 @@ jobs:
   build:
     runs-on: ubuntu-latest
     outputs:
-      VERSION: ${{ steps.bump-version.outputs.VERSION }}
+      VERSION: ${{ steps.set-output.outputs.IMAGE_TAG }}
     steps:
       - name: Bump version
         id: bump-version
         run: |
-          TAG=$(echo VERSION-1-2-3)
-          echo "::set-output name=VERSION::$TAG"
+          TAG=$(echo VERSION-1-2-3-45)
       - name: Set output
+        id: set-output
         run: echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
 
   bump_version_dev:
