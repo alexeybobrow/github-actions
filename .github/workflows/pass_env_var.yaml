@@ -1,0 +1,49 @@
+name: "Pass ENV var "
+
+permissions:
+  contents: write
+
+on:
+  workflow_dispatch:
+    inputs:
+      ENVIRONMENT:
+        type: choice
+        description: 'Environment name'
+        required: true
+        default: 'staging'
+        options:
+          - staging
+          
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    outputs:
+      VERSION: ${{ steps.bump-version.outputs.VERSION }}
+    steps:
+      - name: Bump version
+        id: bump-version
+        run: |
+          rake bump:minor
+          TAG=$(echo VERSION-1-2-3)
+          echo "::set-output name=VERSION::$TAG"
+
+  bump_version_dev:
+    needs: build
+    outputs:
+      VERSION: ${{ needs.build.outputs.VERSION }}
+    uses: ./.github/workflows/cicd-bump-version.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+
+  notify:
+    name: Notify on Slack
+    if: always()
+    needs: bump_version_dev
+    uses: ./.github/workflows/ci-cd-slack-event.yml
+    with:
+      ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+      SLACK_CHANNEL_ID: project-rocky-cicd
+      STATUS: ${{ needs.bump_version_dev.result }}
+      VERSION: ${{ needs.bump_version_dev.outputs.VERSION }}
+    run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
+
