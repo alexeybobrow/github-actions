@@ -40,7 +40,6 @@ jobs:
     name: Notify on Slack
     if: always()
     needs: bump_version_dev
-    uses: ./.github/workflows/ci-cd-slack-event.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
       SLACK_CHANNEL_ID: project-rocky-cicd
