@@ -41,7 +41,8 @@ jobs:
     if: always()
     needs: bump_version_dev
     runs-on: ubuntu-latest
+    env:
+      IMAGE_TAG: ${{ needs.bump_version_dev.outputs.VERSION }}
     steps:
-      - run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
       - run: echo $IMAGE_TAG
 
