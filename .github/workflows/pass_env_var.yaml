@@ -23,7 +23,6 @@ jobs:
       - name: Bump version
         id: bump-version
         run: |
-          rake bump:minor
           TAG=$(echo VERSION-1-2-3)
           echo "::set-output name=VERSION::$TAG"
 
