@@ -31,9 +31,10 @@ jobs:
     needs: build
     outputs:
       VERSION: ${{ needs.build.outputs.VERSION }}
-    uses: ./.github/workflows/cicd-bump-version.yml
     with:
       ENVIRONMENT: ${{ inputs.ENVIRONMENT }}
+    steps:
+      - run: echo "bump_version_dev"
 
   notify:
     name: Notify on Slack
@@ -45,5 +46,6 @@ jobs:
       SLACK_CHANNEL_ID: project-rocky-cicd
       STATUS: ${{ needs.bump_version_dev.result }}
       VERSION: ${{ needs.bump_version_dev.outputs.VERSION }}
-    run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
+    steps:
+      - run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
 
