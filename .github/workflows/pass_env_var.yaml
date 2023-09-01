@@ -25,6 +25,8 @@ jobs:
         run: |
           TAG=$(echo VERSION-1-2-3)
           echo "::set-output name=VERSION::$TAG"
+      - name: Set output
+        run: echo "IMAGE_TAG=$TAG" >> $GITHUB_OUTPUT
 
   bump_version_dev:
     needs: build
@@ -41,4 +43,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo ${{ needs.bump_version_dev.outputs.VERSION }}
+      - run: echo $IMAGE_TAG
 
