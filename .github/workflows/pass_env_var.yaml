@@ -17,8 +17,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    outputs:
-      VERSION: ${{ steps.set-output.outputs.IMAGE_TAG }}
     steps:
       - name: Bump version
         id: bump-version
@@ -45,6 +43,5 @@ jobs:
       IMAGE_TAG: ${{ needs.bump_version_dev.outputs.VERSION }}
       TAG: ${{ jobs.build.outputs.VERSION }}
     steps:
-      - run: echo $IMAGE_TAG
-      - run: echo $TAG
+      - run: echo ${{ env.IMAGE_TAG }}
 
