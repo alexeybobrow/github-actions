@@ -41,7 +41,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       IMAGE_TAG: ${{ needs.bump_version_dev.outputs.VERSION }}
-      TAG: ${{ jobs.build.outputs.VERSION }}
     steps:
       - run: echo ${{ env.IMAGE_TAG }}
 
