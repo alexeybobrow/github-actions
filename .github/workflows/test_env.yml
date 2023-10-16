@@ -19,7 +19,5 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Put secrets
-              run: echo "NEXT_PUBLIC_API_URL = $NEXT_PUBLIC_API_URL"
-            
-            - run: echo "${{ vars.NEXT_PUBLIC_API_URL }}"
+            - name: Check python
+              run: python --version
