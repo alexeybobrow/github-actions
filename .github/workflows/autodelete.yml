@@ -94,7 +94,7 @@ jobs:
       - name: Run migrations
         id: run_migrations
         continue-on-error: true
-        run: echo "RUN MIGRATIONS
+        run: echo "RUN MIGRATIONS"
           # if grep -e 'DATABASE_HOST.*migrations.*' .env; then
           #   printf "Run migrations against %s instance\n" "${{ env.DB_ENDPOINT }}"
           #   npm run migration:run
