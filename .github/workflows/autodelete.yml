@@ -107,9 +107,9 @@ jobs:
 #        if: ${{ inputs.AUTODELETE }} || steps.get_rds_endpoint.outcome != 'success' || steps.create_artifact.outcome != 'success' || steps.install_deps.outcome != 'success' || steps.run_migrations.outcome != 'success'
         # if: ${{ inputs.AUTODELETE == 'true' || steps.get_rds_endpoint.outcome != 'success' || steps.create_artifact.outcome != 'success' || steps.install_deps.outcome != 'success' || steps.run_migrations.outcome != 'success' }}
         if: |
-          inputs.AUTODELETE ||
           steps.get_rds_endpoint.outcome != 'success' ||
           steps.create_artifact.outcome != 'success' ||
           steps.install_deps.outcome != 'success' ||
-          steps.run_migrations.outcome != 'success'
+          steps.run_migrations.outcome != 'success' ||
+          inputs.AUTODELETE
         run: echo "DELETE RDS FOR MIGRATIONS"
