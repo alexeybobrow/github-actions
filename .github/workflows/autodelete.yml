@@ -1,0 +1,109 @@
+name: Database Migrations Testing Pipeline
+run-name: Test DB Migrations in ${{ inputs.ENV_NAME }} environment by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      AWS_REGION:
+        description: AWS Region name to use as a target environment
+        type: string
+        required: true
+        default: us-east-2
+      ENV_NAME:
+        description: Name of the target environment
+        type: choice
+        required: true
+        options:
+          - dev
+          - stg
+          - uat
+          - prd
+        default: prd
+      AUTODELETE:
+        description: Set to true to terminate the instance after migrations
+        type: boolean
+        default: false
+        required: true
+
+env:
+#  AWS_DEFAULT_REGION: ${{ inputs.AWS_REGION }}
+  AWS_DEFAULT_REGION: us-east-2
+  NODE_VERSION: 16.17.0
+  KUBECTL_VERSION: 1.27.2
+
+jobs:
+  build:
+    name: Test DB Migration
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mapping vars
+        uses: kanga333/variable-mapper@master
+        id: export
+        with:
+#          key: "${{ inputs.ENV_NAME}}"
+          key: dev
+          map: |
+            {
+              "dev": {
+                "NAMESPACE": "development",
+                "BRANCH_NAME": "develop"
+              },
+              "stage": {
+                "NAMESPACE": "staging",
+                "BRANCH_NAME": "staging"
+              },
+              "uat": {
+                "NAMESPACE": "uat",
+                "BRANCH_NAME": "uat"
+              },
+              "prod": {
+                "NAMESPACE": "production",
+                "BRANCH_NAME": "main"
+              }
+            }
+          export_to: env,log,output
+
+      - name: Checkout code
+        uses: actions/checkout@v3
+        # with:
+        #   ref: ${{ env.BRANCH_NAME }}
+
+      - name: Get RDS endpoint
+        id: get_rds_endpoint
+        continue-on-error: true
+#        run: |
+#          DB_ENDPOINT=$(aws rds describe-db-instances --db-instance-identifier ${{ env.INSTANCE_IDENTIFIER }} | jq -r '.DBInstances[0].Endpoint.Address')
+#          printf "\nDATABASE_HOST=%s" "${DB_ENDPOINT}" | tee -a .env db-endpoint.txt
+        run: |
+          echo "GET RDS ENDPOINT"
+
+      - name: Create an artifact
+        id: create_artifact
+        continue-on-error: true
+        run: echo "CREATE ARTIFACT"
+        # uses: actions/upload-artifact@v3
+        # with:
+        #   name: db-endpoint
+        #   path: db-endpoint.txt
+
+      - name: Install NPM dependencies
+        id: install_deps
+        continue-on-error: true
+        run: echo "INSTALL DEPS"
+
+      - name: Run migrations
+        id: run_migrations
+        continue-on-error: true
+        run: echo "RUN MIGRATIONS
+          # if grep -e 'DATABASE_HOST.*migrations.*' .env; then
+          #   printf "Run migrations against %s instance\n" "${{ env.DB_ENDPOINT }}"
+          #   npm run migration:run
+          # else
+          #   echo "Something went wrong, the database endpoint not changed"
+          #   exit 1
+          # fi
+
+      - name: Delete RDS for migrations
+#        if: ${{ inputs.AUTODELETE }} || steps.get_rds_endpoint.outcome != 'success' || steps.create_artifact.outcome != 'success' || steps.install_deps.outcome != 'success' || steps.run_migrations.outcome != 'success'
+        if: ${{ inputs.AUTODELETE || steps.get_rds_endpoint.outcome != 'success' || steps.create_artifact.outcome != 'success' || steps.install_deps.outcome != 'success' || steps.run_migrations.outcome != 'success' }}
+        run: echo "DELETE RDS FOR MIGRATIONS"
