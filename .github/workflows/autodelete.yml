@@ -19,11 +19,16 @@ on:
           - uat
           - prd
         default: prd
-      AUTODELETE:
-        description: Set to true to terminate the instance after migrations
-        type: boolean
-        default: false
+      TTL:
+        description: Set Time-to-live for RDS migrations cluster
+        type: choice
         required: true
+        default: '2h'
+        options:
+          - '2h'
+          - '4h'
+          - '8h'
+          - '24h'
 
 env:
   AWS_DEFAULT_REGION: us-east-2
