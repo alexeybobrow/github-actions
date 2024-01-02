@@ -19,5 +19,9 @@ jobs:
             - name: Checkout code
               uses: actions/checkout@v3
 
-            - name: Check python
-              run: python --version
+            - name: Get full gh sha
+              run: echo ${GITHUB_SHA}
+
+            - name: Get short gh sha
+              run: echo ${GITHUB_SHA::7}
+
