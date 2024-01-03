@@ -21,15 +21,15 @@ jobs:
 
             - name: Build and push
               uses: docker/build-push-action@v4
-              env:
-                GITHUB_REF_NAME: ${ github.ref_name }
-                GITHUB_SHA: ${GITHUB_SHA::7}
+              # env:
+              #   GITHUB_REF_NAME: ${ github.ref_name }
+              #   GITHUB_SHA: ${GITHUB_SHA::7}
               with:
-                  file: ./Dockerfile.dev
+                  file: ./Dockerfile
                   context: .
                   push: false
                   tags: |
-                    ECR_REGISTRY/ECR_REPOSITORY:${{ env.GITHUB_SHA }}-${ github.ref_name }
+                    type=raw,value=REGISTRY/REPOSITORY:${GITHUB_SHA::7}-${ github.ref_name }
 
             - name: Get full gh sha
               run: echo ${GITHUB_SHA}
