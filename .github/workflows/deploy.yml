@@ -14,11 +14,11 @@ jobs:
       - name: Test output
         run: |
           echo Current job is ${{ github.job }}
-          echo "JOB_NAME=${{ github.job }}" >> $GITHUB_OUTPUT
+          # echo "JOB_NAME=${{ github.job }}" >> $GITHUB_OUTPUT
 
   output:
     runs-on: ubuntu-latest
     needs: deploy
     steps:
       - name: Output
-        run: echo ${{ env.JOB_NAME }}
+        run: echo Thi job is ${{ needs.deploy.outputs.job }}
