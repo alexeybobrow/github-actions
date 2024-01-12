@@ -22,4 +22,4 @@ jobs:
     needs: deploy
     steps:
       - name: Output
-        run: echo Thi job is ${{ needs.deploy.github.job }}
+        run: echo This job is ${{ needs.deploy.env.GITHUB_JOB }}
