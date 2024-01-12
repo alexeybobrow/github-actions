@@ -6,12 +6,10 @@ on:
       ENVIRONMENT:
         description: 'Environment name'
         type: string
-        required: true
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Test output
         run: echo Deploy job
