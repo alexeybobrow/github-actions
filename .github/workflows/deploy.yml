@@ -7,18 +7,6 @@ on:
         description: 'Environment name'
         type: string
         required: true
-      FOLDER_PATH:
-        description: 'Folder path'
-        type: string
-        required: true
-      SSH_HOST:
-        description: 'Host name'
-        type: string
-        required: true
-      EC2IP:
-        description: 'ec2 ip address'
-        type: string
-        required: true
 
 jobs:
   deploy:
