@@ -10,6 +10,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    outputs:
+      job_name: ${{ github.jobs.deploy.name }}
     steps:
       - name: Test output
         run: echo Deploy job
@@ -19,4 +21,4 @@ jobs:
     needs: deploy
     steps:
       - name: Output
-        run: echo ${{ github.jobs.deploy.name }}
+        run: echo ${{ needs.deploy.outputs.job_name }}
