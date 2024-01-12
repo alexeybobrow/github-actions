@@ -14,6 +14,7 @@ jobs:
       - name: Test output
         run: |
           echo Current job is ${{ github.job }}
+          printenv
           # echo "JOB_NAME=${{ github.job }}" >> $GITHUB_OUTPUT
 
   output:
@@ -21,4 +22,4 @@ jobs:
     needs: deploy
     steps:
       - name: Output
-        run: echo Thi job is ${{ needs.deploy.outputs.job }}
+        run: echo Thi job is ${{ needs.deploy.github.job }}
