@@ -19,4 +19,4 @@ jobs:
     needs: deploy
     steps:
       - name: Output
-        run: echo ${{ jobs.deploy.name }}
+        run: echo ${{ github.jobs.deploy.name }}
