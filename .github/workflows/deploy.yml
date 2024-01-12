@@ -19,4 +19,4 @@ jobs:
     needs: deploy
     steps:
       - name: Output
-        run: echo ${{ needs.deploy.name }}
+        run: echo ${{ job.deploy.name }}
