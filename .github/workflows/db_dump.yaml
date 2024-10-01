@@ -42,8 +42,13 @@ jobs:
 
   helm:
     name: Helm
-    needs: docker
-    if: always() && needs.docker.result == 'success'
+    needs: 
+      - docker
+      - db_import
+    if: |
+      always() && 
+      needs.docker.result == 'success' && 
+      (needs.db_import.result == 'success' || needs.db_import.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
      - run: echo helm
