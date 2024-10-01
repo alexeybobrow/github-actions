@@ -1,0 +1,47 @@
+name: Build and Deploy Backend [DEV]
+run-name: Build and Deploy Backend Dev by @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      RESTORE_PRD_SCHEMA:
+        description: Set if you want to restore Production DB Schema
+        type: choice
+        required: false
+        options:
+          - 'true'
+          - 'false'
+        default: true
+
+jobs:
+  db_dump:
+    runs-on: ubuntu-latest
+    name: Export Production Schema
+    if: inputs.RESTORE_PRD_SCHEMA == 'true'
+    steps:
+      - run: echo DB_DUMP
+
+
+  db_import:
+    name: Import Production Schema
+    runs-on: ubuntu-latest
+    if: inputs.RESTORE_PRD_SCHEMA == 'true'
+    needs: db_dump
+    steps:
+     - run: echo DB_IMPORT
+
+  docker:
+    name: Docker
+    needs: db_dump
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo docker
+
+  helm:
+    name: Helm
+    needs:
+      - docker
+      - db_import
+    runs-on: ubuntu-latest
+    steps:
+     - run: echo-helm
