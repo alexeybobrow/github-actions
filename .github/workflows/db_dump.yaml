@@ -43,6 +43,7 @@ jobs:
   helm:
     name: Helm
     needs: docker
+    if: needs.docker.result == 'success'
     runs-on: ubuntu-latest
     steps:
      - run: echo helm
