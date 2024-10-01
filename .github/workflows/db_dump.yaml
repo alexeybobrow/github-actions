@@ -28,7 +28,7 @@ jobs:
     if: inputs.RESTORE_PRD_SCHEMA == 'true'
     needs: db_dump
     steps:
-     - run: echo DB_IMPORT
+     - run: echo-DB_IMPORT
 
   docker:
     name: Docker
