@@ -33,6 +33,9 @@ jobs:
   docker:
     name: Docker
     needs: db_dump
+    if:  |
+      always() &&
+      (needs.db_dump.result == 'success' || needs.db_dump.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
      - run: echo docker
@@ -41,7 +44,6 @@ jobs:
     name: Helm
     needs:
       - docker
-      - db_import
     runs-on: ubuntu-latest
     steps:
-     - run: echo-helm
+     - run: echo helm
