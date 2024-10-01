@@ -42,8 +42,7 @@ jobs:
 
   helm:
     name: Helm
-    needs:
-      - docker
+    needs: docker
     runs-on: ubuntu-latest
     steps:
      - run: echo helm
