@@ -38,7 +38,7 @@ jobs:
       (needs.db_dump.result == 'success' || needs.db_dump.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
-     - run: echo docker
+     - run: echo-docker
 
   helm:
     name: Helm
